@@ -71,7 +71,7 @@ public class StatsDemo {
         }
         scnr.close();
 		mean = sum / count;
-        System.out.println(mean);
+        
 		
 		
 
@@ -107,7 +107,7 @@ public class StatsDemo {
         scnr.close();
         stdDev = Math.sqrt(sum/count);
 
-        System.out.println(stdDev);
+       
 
 
 
