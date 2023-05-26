@@ -1,6 +1,13 @@
 
 
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 // TASK #1 Add the file I/O import statement here 
 
@@ -16,7 +23,7 @@ public class StatsDemo {
 
     // TASK #2 Add the throws clause  
    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         
         //------------------------------------------------------------
         double sum = 0;	// The sum of the numbers 
@@ -48,10 +55,23 @@ public class StatsDemo {
             // convert the string to double and add the value to sum 
             // Increment the counter 
         // Close the input file 
-        // calculate the mean and Store it 
-        
-        
-		
+        // calculate the mean and Store it
+
+        File inputFile = new File(filename);
+
+        Scanner scnr = new Scanner(inputFile);
+
+        while(scnr.hasNextLine()){
+
+            line = scnr.nextLine();
+            double val = Double.parseDouble(line);
+            sum = sum + val;
+            count++;
+
+        }
+        scnr.close();
+		mean = sum / count;
+        System.out.println(mean);
 		
 		
 
@@ -69,6 +89,28 @@ public class StatsDemo {
             // Increment the counter 
         // Close the input file 
         // calculate the standard deviation and store it
+
+        sum = 0;
+        count = 0;
+        inputFile = new File(filename);
+        scnr = new Scanner(inputFile);
+
+        while(scnr.hasNextLine()){
+
+            line = scnr.nextLine();
+            double val = Double.parseDouble(line);
+            difference = val - mean;
+            sum = sum + (Math.pow(difference,2));
+            count++;
+
+        }
+        scnr.close();
+        stdDev = Math.sqrt(sum/count);
+
+        System.out.println(stdDev);
+
+
+
         
 		
 		
@@ -93,10 +135,15 @@ public class StatsDemo {
 		
 		
 		//write your code here
-		
-		
-		
-		
+		try{
+		PrintWriter output = new PrintWriter(filename);
+
+        output.printf("mean = %.3f\n", mean);
+        output.printf("Standard deviation = %.3f\n ", stdDev);
+		output.close();
+        }catch(IOException e){
+           System.out.println(e.getMessage());
+        }
 		
 		
         System.out.println(" ");
